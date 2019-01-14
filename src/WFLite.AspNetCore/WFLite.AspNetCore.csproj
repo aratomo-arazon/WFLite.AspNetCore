@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Version>1.0.1</Version>
+    <Product />
+    <Authors>aratomo-arazon</Authors>
+    <Description>WFLite.AspNetCore is a WFLite utility library for ASP.NET Core.</Description>
+    <Copyright>Copyright (c) 2019 aratomo-arazon</Copyright>
+    <PackageLicenseUrl>https://github.com/aratomo-arazon/WFLite.AspNetCore/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/aratomo-arazon/WFLite.AspNetCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aratomo-arazon/WFLite.AspNetCore</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="WFLite" Version="1.0.1" />
+  </ItemGroup>
+
+</Project>
