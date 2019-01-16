@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WFLite.AspNetCore", "src\WFLite.AspNetCore\WFLite.AspNetCore.csproj", "{CBEFFDBA-1A36-4777-82A2-0BA891E67F8A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WFLite.AspNetCore.HelloWorld", "examples\WFLite.AspNetCore.HelloWorld\WFLite.AspNetCore.HelloWorld.csproj", "{00DD3997-73E3-44B0-BC61-C8B3B3490460}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CBEFFDBA-1A36-4777-82A2-0BA891E67F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBEFFDBA-1A36-4777-82A2-0BA891E67F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBEFFDBA-1A36-4777-82A2-0BA891E67F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00DD3997-73E3-44B0-BC61-C8B3B3490460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00DD3997-73E3-44B0-BC61-C8B3B3490460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00DD3997-73E3-44B0-BC61-C8B3B3490460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00DD3997-73E3-44B0-BC61-C8B3B3490460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

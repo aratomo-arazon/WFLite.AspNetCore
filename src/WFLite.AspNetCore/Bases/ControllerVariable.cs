@@ -13,11 +13,12 @@ using WFLite.Bases;
 
 namespace WFLite.AspNetCore.Bases
 {
-    public abstract class ControllerVariable : Variable
+    public abstract class ControllerVariable<TController> : Variable
+        where TController : ControllerBase
     {
-        private readonly Controller _controller;
+        private readonly TController _controller;
 
-        public ControllerVariable(Controller controller)
+        public ControllerVariable(TController controller)
         {
             _controller = controller;
         }
@@ -32,8 +33,16 @@ namespace WFLite.AspNetCore.Bases
             setValue(_controller, value);
         }
 
-        protected abstract object getValue(Controller controller);
+        protected abstract object getValue(TController controller);
 
-        protected abstract void setValue(Controller controller, object value);
+        protected abstract void setValue(TController controller, object value);
+    }
+
+    public abstract class ControllerVariable : ControllerVariable<ControllerBase>
+    {
+        public ControllerVariable(ControllerBase controller)
+            : base(controller)
+        {
+        }
     }
 }

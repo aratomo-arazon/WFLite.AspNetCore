@@ -12,11 +12,12 @@ using WFLite.Bases;
 
 namespace WFLite.AspNetCore.Bases
 {
-    public abstract class ControllerCondition : Condition
+    public abstract class ControllerCondition<TController> : Condition
+        where TController : ControllerBase
     {
-        private readonly Controller _controller;
+        private readonly TController _controller;
 
-        public ControllerCondition(Controller controller)
+        public ControllerCondition(TController controller)
         {
             _controller = controller;
         }
@@ -26,6 +27,14 @@ namespace WFLite.AspNetCore.Bases
             return check(_controller);
         }
 
-        protected abstract bool check(Controller controller);
+        protected abstract bool check(TController controller);
+    }
+
+    public abstract class ControllerCondition : ControllerCondition<ControllerBase>
+    {
+        public ControllerCondition(ControllerBase controller)
+            : base(controller)
+        {
+        }
     }
 }

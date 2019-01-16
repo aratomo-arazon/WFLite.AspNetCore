@@ -11,11 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WFLite.AspNetCore.Bases
 {
-    public abstract class ControllerConverter : WFLite.Bases.Converter
+    public abstract class ControllerConverter<TController> : WFLite.Bases.Converter
+        where TController : ControllerBase
     {
-        private readonly Controller _controller;
+        private readonly TController _controller;
 
-        public ControllerConverter(Controller controller)
+        public ControllerConverter(TController controller)
         {
             _controller = controller;
         }
@@ -25,6 +26,14 @@ namespace WFLite.AspNetCore.Bases
             return convert(_controller, value);
         }
 
-        protected abstract object convert(Controller controller, object value);
+        protected abstract object convert(TController controller, object value);
+    }
+
+    public abstract class ControllerConverter : ControllerConverter<ControllerBase>
+    {
+        public ControllerConverter(ControllerBase controller)
+            : base(controller)
+        {
+        }
     }
 }

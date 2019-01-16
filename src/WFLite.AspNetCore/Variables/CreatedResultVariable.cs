@@ -28,12 +28,12 @@ namespace WFLite.AspNetCore.Variables
             set;
         }
 
-        public CreatedResultVariable(Controller controller)
+        public CreatedResultVariable(ControllerBase controller)
             : base(controller)
         {
         }
 
-        protected sealed override object getValue(Controller controller)
+        protected sealed override object getValue(ControllerBase controller)
         {
             var request = controller.HttpContext.Request;
             var scheme = request.Scheme;
@@ -45,7 +45,7 @@ namespace WFLite.AspNetCore.Variables
             return new CreatedResult($"{scheme}://{host}{path}/{resource}", value);
         }
 
-        protected sealed override void setValue(Controller controller, object value)
+        protected sealed override void setValue(ControllerBase controller, object value)
         {
             throw new NotSupportedException();
         }

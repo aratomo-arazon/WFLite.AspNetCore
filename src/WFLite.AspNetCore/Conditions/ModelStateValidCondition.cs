@@ -14,12 +14,12 @@ namespace WFLite.AspNetCore.Conditions
 {
     public class ModelStateValidCondition : ControllerCondition
     {
-        public ModelStateValidCondition(Controller controller)
+        public ModelStateValidCondition(ControllerBase controller)
             : base(controller)
         {
         }
 
-        protected override bool check(Controller controller)
+        protected override bool check(ControllerBase controller)
         {
             return controller.ModelState.IsValid;
         }

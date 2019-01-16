@@ -17,11 +17,12 @@ using WFLite.Extensions;
 
 namespace WFLite.AspNetCore.Bases
 {
-    public abstract class ControllerAsyncActivity : AsyncActivity
+    public abstract class ControllerAsyncActivity<TController> : AsyncActivity
+        where TController : ControllerBase
     {
-        private readonly Controller _controller;
+        private readonly TController _controller;
 
-        public ControllerAsyncActivity(Controller controller)
+        public ControllerAsyncActivity(TController controller)
         {
             _controller = controller;
         }
@@ -31,6 +32,14 @@ namespace WFLite.AspNetCore.Bases
             return run(_controller, cancellationToken);
         }
 
-        protected abstract Task<bool> run(Controller controller, CancellationToken cancellationToken);
+        protected abstract Task<bool> run(TController controller, CancellationToken cancellationToken);
+    }
+
+    public abstract class ControllerAsyncActivity : ControllerAsyncActivity<ControllerBase>
+    {
+        public ControllerAsyncActivity(ControllerBase controller)
+            : base(controller)
+        {
+        }
     }
 }

@@ -16,11 +16,12 @@ using WFLite.Enums;
 
 namespace WFLite.AspNetCore.Bases
 {
-    public abstract class ControllerSyncActivity : SyncActivity
+    public abstract class ControllerSyncActivity<TController> : SyncActivity
+        where TController : ControllerBase
     {
-        private readonly Controller _controller;
+        private readonly TController _controller;
 
-        public ControllerSyncActivity(Controller controller)
+        public ControllerSyncActivity(TController controller)
         {
             _controller = controller;
         }
@@ -30,6 +31,14 @@ namespace WFLite.AspNetCore.Bases
             return run(_controller);
         }
 
-        protected abstract bool run(Controller controller);
+        protected abstract bool run(TController controller);
+    }
+
+    public abstract class ControllerSyncActivity : ControllerSyncActivity<ControllerBase>
+    {
+        public ControllerSyncActivity(ControllerBase controller)
+            : base(controller)
+        {
+        }
     }
 }
