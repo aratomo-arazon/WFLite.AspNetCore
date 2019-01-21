@@ -8,8 +8,9 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
-using System;
+using Microsoft.Extensions.Logging;
 using WFLite.Bases;
+using WFLite.Logging.Bases;
 
 namespace WFLite.AspNetCore.Bases
 {
@@ -38,11 +39,29 @@ namespace WFLite.AspNetCore.Bases
         protected abstract void setValue(TController controller, object value);
     }
 
-    public abstract class ControllerVariable : ControllerVariable<ControllerBase>
+    public abstract class ControllerVariable<TCategoryName, TController> : LoggingVariable<TCategoryName>
+        where TController : ControllerBase
     {
-        public ControllerVariable(ControllerBase controller)
-            : base(controller)
+        private readonly TController _controller;
+
+        public ControllerVariable(ILogger<TCategoryName> logger, TController controller)
+            : base(logger)
         {
+            _controller = controller;
         }
+
+        protected sealed override object getValue(ILogger<TCategoryName> logger)
+        {
+            return getValue(logger, _controller);
+        }
+
+        protected sealed override void setValue(ILogger<TCategoryName> logger, object value)
+        {
+            setValue(logger, _controller, value);
+        }
+
+        protected abstract object getValue(ILogger<TCategoryName> logger, TController controller);
+
+        protected abstract void setValue(ILogger<TCategoryName> logger, TController controller, object value);
     }
 }

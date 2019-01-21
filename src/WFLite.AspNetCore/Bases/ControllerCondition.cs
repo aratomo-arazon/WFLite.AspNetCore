@@ -8,7 +8,9 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WFLite.Bases;
+using WFLite.Logging.Bases;
 
 namespace WFLite.AspNetCore.Bases
 {
@@ -30,11 +32,22 @@ namespace WFLite.AspNetCore.Bases
         protected abstract bool check(TController controller);
     }
 
-    public abstract class ControllerCondition : ControllerCondition<ControllerBase>
+    public abstract class ControllerCondition<TCategoryName, TController> : LoggingCondition<TCategoryName>
+        where TController : ControllerBase
     {
-        public ControllerCondition(ControllerBase controller)
-            : base(controller)
+        private readonly TController _controller;
+
+        public ControllerCondition(ILogger<TCategoryName> logger, TController controller)
+            : base(logger)
         {
+            _controller = controller;
         }
+
+        protected sealed override bool check(ILogger<TCategoryName> logger)
+        {
+            return check(logger, _controller);
+        }
+
+        protected abstract bool check(ILogger<TCategoryName> logger, TController controller);
     }
 }

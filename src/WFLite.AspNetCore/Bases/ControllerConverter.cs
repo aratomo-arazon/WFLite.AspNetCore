@@ -8,10 +8,13 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using WFLite.Bases;
+using WFLite.Logging.Bases;
 
 namespace WFLite.AspNetCore.Bases
 {
-    public abstract class ControllerConverter<TController> : WFLite.Bases.Converter
+    public abstract class ControllerConverter<TController> : Converter
         where TController : ControllerBase
     {
         private readonly TController _controller;
@@ -29,11 +32,22 @@ namespace WFLite.AspNetCore.Bases
         protected abstract object convert(TController controller, object value);
     }
 
-    public abstract class ControllerConverter : ControllerConverter<ControllerBase>
+    public abstract class ControllerConverter<TController, TCategoryName> : LoggingConverter<TCategoryName>
+        where TController : ControllerBase
     {
-        public ControllerConverter(ControllerBase controller)
-            : base(controller)
+        private readonly TController _controller;
+
+        public ControllerConverter(ILogger<TCategoryName> logger, TController controller)
+            : base(logger)
         {
+            _controller = controller;
         }
+
+        protected sealed override object convert(ILogger<TCategoryName> logger, object value)
+        {
+            return convert(logger, _controller, value);
+        }
+
+        protected abstract object convert(ILogger<TCategoryName> logger, TController controller, object value);
     }
 }

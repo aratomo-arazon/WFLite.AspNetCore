@@ -12,7 +12,7 @@ using WFLite.AspNetCore.Bases;
 
 namespace WFLite.AspNetCore.Conditions
 {
-    public class ModelStateValidCondition : ControllerCondition
+    public class ModelStateValidCondition : ControllerCondition<ControllerBase>
     {
         public ModelStateValidCondition(ControllerBase controller)
             : base(controller)

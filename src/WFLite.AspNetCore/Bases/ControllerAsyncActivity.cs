@@ -8,12 +8,11 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
-using System;
+using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 using WFLite.Activities;
-using WFLite.Enums;
-using WFLite.Extensions;
+using WFLite.Logging.Bases;
 
 namespace WFLite.AspNetCore.Bases
 {
@@ -35,11 +34,22 @@ namespace WFLite.AspNetCore.Bases
         protected abstract Task<bool> run(TController controller, CancellationToken cancellationToken);
     }
 
-    public abstract class ControllerAsyncActivity : ControllerAsyncActivity<ControllerBase>
+    public abstract class ControllerAsyncActivity<TCategoryName, TController> : LoggingAsyncActivity<TCategoryName>
+        where TController : ControllerBase
     {
-        public ControllerAsyncActivity(ControllerBase controller)
-            : base(controller)
+        private readonly TController _controller;
+
+        public ControllerAsyncActivity(ILogger<TCategoryName> logger, TController controller)
+            : base(logger)
         {
+            _controller = controller;
         }
+
+        protected sealed override Task<bool> run(ILogger<TCategoryName> logger, CancellationToken cancellationToken)
+        {
+            return run(logger, _controller, cancellationToken);
+        }
+
+        protected abstract Task<bool> run(ILogger<TCategoryName> logger, TController controller, CancellationToken cancellationToken);
     }
 }

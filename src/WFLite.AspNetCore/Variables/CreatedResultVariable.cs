@@ -14,7 +14,7 @@ using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
-    public class CreatedResultVariable : ControllerVariable
+    public class CreatedResultVariable : ControllerVariable<ControllerBase>
     {
         public IVariable Resource
         {

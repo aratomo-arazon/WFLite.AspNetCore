@@ -8,11 +8,9 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WFLite.Activities;
-using WFLite.Bases;
-using WFLite.Enums;
+using WFLite.Logging.Bases;
 
 namespace WFLite.AspNetCore.Bases
 {
@@ -34,11 +32,22 @@ namespace WFLite.AspNetCore.Bases
         protected abstract bool run(TController controller);
     }
 
-    public abstract class ControllerSyncActivity : ControllerSyncActivity<ControllerBase>
+    public abstract class ControllerSyncActivity<TCategoryName, TController> : LoggingSyncActivity<TCategoryName>
+        where TController : ControllerBase
     {
-        public ControllerSyncActivity(ControllerBase controller)
-            : base(controller)
+        private readonly TController _controller;
+
+        public ControllerSyncActivity(ILogger<TCategoryName> logger, TController controller)
+            : base(logger)
         {
+            _controller = controller;
         }
+
+        protected sealed override bool run(ILogger<TCategoryName> logger)
+        {
+            return run(logger, _controller);
+        }
+
+        protected abstract bool run(ILogger<TCategoryName> logger, TController controller);
     }
 }
