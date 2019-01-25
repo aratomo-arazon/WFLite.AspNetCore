@@ -10,11 +10,21 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using WFLite.Bases;
+using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
     public class NoContentResultVariable : Variable
     {
+        public NoContentResultVariable()
+        {
+        }
+
+        public NoContentResultVariable(IConverter converter = null)
+        {
+            Converter = converter;
+        }
+
         protected override object getValue()
         {
             return new NoContentResult();

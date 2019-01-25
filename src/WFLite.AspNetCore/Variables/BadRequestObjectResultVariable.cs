@@ -22,6 +22,16 @@ namespace WFLite.AspNetCore.Variables
             set;
         }
 
+        public BadRequestObjectResultVariable()
+        {
+        }
+
+        public BadRequestObjectResultVariable(IVariable error, IConverter converter = null)
+        {
+            Error = error;
+            Converter = converter;  // TODO
+        }
+
         protected override object getValue()
         {
             return new BadRequestObjectResult(Error.GetValue());

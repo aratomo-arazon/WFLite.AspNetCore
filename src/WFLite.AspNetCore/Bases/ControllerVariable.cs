@@ -10,6 +10,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WFLite.Bases;
+using WFLite.Interfaces;
 using WFLite.Logging.Bases;
 
 namespace WFLite.AspNetCore.Bases
@@ -22,6 +23,12 @@ namespace WFLite.AspNetCore.Bases
         public ControllerVariable(TController controller)
         {
             _controller = controller;
+        }
+
+        public ControllerVariable(TController controller, IConverter converter = null)
+        {
+            _controller = controller;
+            Converter = converter;  // TODO
         }
 
         protected sealed override object getValue()
@@ -48,6 +55,13 @@ namespace WFLite.AspNetCore.Bases
             : base(logger)
         {
             _controller = controller;
+        }
+
+        public ControllerVariable(ILogger<TCategoryName> logger, TController controller, IConverter converter = null)
+            : base(logger)
+        {
+            _controller = controller;
+            Converter = converter;  // TODO
         }
 
         protected sealed override object getValue(ILogger<TCategoryName> logger)

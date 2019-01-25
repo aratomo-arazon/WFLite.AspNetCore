@@ -22,6 +22,16 @@ namespace WFLite.AspNetCore.Variables
             set;
         }
 
+        public StatusCodeResultVariable()
+        {
+        }
+
+        public StatusCodeResultVariable(IVariable statusCode, IConverter converter = null)
+        {
+            StatusCode = statusCode;
+            Converter = converter;
+        }
+
         protected override object getValue()
         {
             return new StatusCodeResult(Convert.ToInt32(StatusCode.GetValue()));

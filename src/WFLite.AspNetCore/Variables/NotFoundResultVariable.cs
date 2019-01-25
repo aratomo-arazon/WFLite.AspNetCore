@@ -10,11 +10,21 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using WFLite.Bases;
+using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
     public class NotFoundResultVariable : Variable
     {
+        public NotFoundResultVariable()
+        {
+        }
+
+        public NotFoundResultVariable(IConverter converter = null)
+        {
+            Converter = converter;  // TODO
+        }
+
         protected override object getValue()
         {
             return new NotFoundResult();

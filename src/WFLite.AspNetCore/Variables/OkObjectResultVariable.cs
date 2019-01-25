@@ -22,6 +22,16 @@ namespace WFLite.AspNetCore.Variables
             set;
         }
 
+        public OkObjectResultVariable()
+        {
+        }
+
+        public OkObjectResultVariable(IVariable value, IConverter converter = null)
+        {
+            Value = value;
+            Converter = converter;
+        }
+
         protected override object getValue()
         {
             return new OkObjectResult(Value.GetValue());

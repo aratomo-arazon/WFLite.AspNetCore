@@ -10,11 +10,21 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using WFLite.Bases;
+using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
     public class UnauthorizedResultVariable : Variable
     {
+        public UnauthorizedResultVariable()
+        {
+        }
+
+        public UnauthorizedResultVariable(IConverter converter = null)
+        {
+            Converter = converter;  // TODO
+        }
+
         protected override object getValue()
         {
             return new UnauthorizedResult();
