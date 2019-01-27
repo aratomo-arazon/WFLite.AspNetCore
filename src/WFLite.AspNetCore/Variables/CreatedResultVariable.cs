@@ -34,11 +34,10 @@ namespace WFLite.AspNetCore.Variables
         }
 
         public CreatedResultVariable(ControllerBase controller, IVariable resource, IVariable value, IConverter converter = null)
-            : base(controller)
+            : base(controller, converter)
         {
             Resource = resource;
             Value = value;
-            Converter = converter;  // TODO
         }
 
         protected sealed override object getValue(ControllerBase controller)

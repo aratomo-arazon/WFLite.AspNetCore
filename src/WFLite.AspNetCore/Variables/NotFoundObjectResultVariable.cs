@@ -27,9 +27,9 @@ namespace WFLite.AspNetCore.Variables
         }
 
         public NotFoundObjectResultVariable(IVariable value, IConverter converter = null)
+            : base(converter)
         {
             Value = value;
-            Converter = converter;
         }
 
         protected override object getValue()

@@ -21,8 +21,8 @@ namespace WFLite.AspNetCore.Variables
         }
 
         public OkResultVariable(IConverter converter)
+            : base(converter)
         {
-            Converter = converter;  // TODO
         }
 
         protected override object getValue()

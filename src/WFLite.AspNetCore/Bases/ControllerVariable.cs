@@ -26,9 +26,9 @@ namespace WFLite.AspNetCore.Bases
         }
 
         public ControllerVariable(TController controller, IConverter converter = null)
+            : base(converter)
         {
             _controller = controller;
-            Converter = converter;  // TODO
         }
 
         protected sealed override object getValue()
@@ -58,10 +58,9 @@ namespace WFLite.AspNetCore.Bases
         }
 
         public ControllerVariable(ILogger<TCategoryName> logger, TController controller, IConverter converter = null)
-            : base(logger)
+            : base(logger, converter)
         {
             _controller = controller;
-            Converter = converter;  // TODO
         }
 
         protected sealed override object getValue(ILogger<TCategoryName> logger)
