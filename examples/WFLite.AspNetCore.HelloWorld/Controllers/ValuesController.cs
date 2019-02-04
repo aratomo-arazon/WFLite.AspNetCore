@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WFLite.Activities;
-using WFLite.AspNetCore.Extensions;
 using WFLite.AspNetCore.Variables;
 using WFLite.Conditions;
 using WFLite.Variables;
@@ -14,13 +13,13 @@ namespace WFLite.AspNetCore.HelloWorld.Controllers
     {
         // GET api/values
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery(Name = "condition")]bool condition = true)  // false: Not Found
         {
-            var actionResult = new AnyVariable();
+            var actionResult = new AnyVariable<IActionResult>();
 
             var activity = new IfActivity()
             {
-                Condition = new TrueCondition(),    // new FalseCondition() -> NotFound
+                Condition = new TrueCondition() { Value = new AnyVariable<bool>() { Value = condition } },
                 Then = new AssignActivity()
                 {
                     To = actionResult,
@@ -38,7 +37,7 @@ namespace WFLite.AspNetCore.HelloWorld.Controllers
 
             await activity.Start();
 
-            return actionResult.GetActionResult();
+            return actionResult.GetValue();
         }
     }
 }

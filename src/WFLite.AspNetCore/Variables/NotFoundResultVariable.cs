@@ -8,19 +8,18 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
-using System;
 using WFLite.Bases;
 using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
-    public class NotFoundResultVariable : Variable
+    public class NotFoundResultVariable : OutVariable<IActionResult>
     {
         public NotFoundResultVariable()
         {
         }
 
-        public NotFoundResultVariable(IConverter converter = null)
+        public NotFoundResultVariable(IConverter<IActionResult> converter = null)
             : base(converter)
         {
         }
@@ -28,11 +27,6 @@ namespace WFLite.AspNetCore.Variables
         protected override object getValue()
         {
             return new NotFoundResult();
-        }
-
-        protected override void setValue(object value)
-        {
-            throw new NotSupportedException();
         }
     }
 }

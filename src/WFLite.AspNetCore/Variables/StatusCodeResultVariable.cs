@@ -8,15 +8,14 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
-using System;
 using WFLite.Bases;
 using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
-    public class StatusCodeResultVariable : Variable
+    public class StatusCodeResultVariable : OutVariable<IActionResult>
     {
-        public IVariable StatusCode
+        public IOutVariable StatusCode
         {
             private get;
             set;
@@ -26,7 +25,7 @@ namespace WFLite.AspNetCore.Variables
         {
         }
 
-        public StatusCodeResultVariable(IVariable statusCode, IConverter converter = null)
+        public StatusCodeResultVariable(IOutVariable statusCode, IConverter<IActionResult> converter = null)
             : base(converter)
         {
             StatusCode = statusCode;
@@ -34,12 +33,7 @@ namespace WFLite.AspNetCore.Variables
 
         protected override object getValue()
         {
-            return new StatusCodeResult(Convert.ToInt32(StatusCode.GetValue()));
-        }
-
-        protected override void setValue(object value)
-        {
-            throw new NotSupportedException();
+            return new StatusCodeResult(StatusCode.GetValue<int>());
         }
     }
 }

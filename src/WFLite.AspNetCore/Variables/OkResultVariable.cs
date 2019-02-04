@@ -8,19 +8,18 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
-using System;
 using WFLite.Bases;
 using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
-    public class OkResultVariable : Variable
+    public class OkResultVariable : OutVariable<IActionResult>
     {
         public OkResultVariable()
         {
         }
 
-        public OkResultVariable(IConverter converter)
+        public OkResultVariable(IConverter<IActionResult> converter = null)
             : base(converter)
         {
         }
@@ -28,11 +27,6 @@ namespace WFLite.AspNetCore.Variables
         protected override object getValue()
         {
             return new OkResult();
-        }
-
-        protected override void setValue(object value)
-        {
-            throw new NotSupportedException();
         }
     }
 }

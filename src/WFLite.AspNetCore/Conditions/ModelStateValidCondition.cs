@@ -8,6 +8,7 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WFLite.AspNetCore.Bases;
 
 namespace WFLite.AspNetCore.Conditions
@@ -15,11 +16,11 @@ namespace WFLite.AspNetCore.Conditions
     public class ModelStateValidCondition : ControllerCondition<ControllerBase>
     {
         public ModelStateValidCondition(ControllerBase controller)
-            : base(controller)
+            : base(null, controller)
         {
         }
 
-        protected override bool check(ControllerBase controller)
+        protected override bool check(ILogger logger, ControllerBase controller)
         {
             return controller.ModelState.IsValid;
         }

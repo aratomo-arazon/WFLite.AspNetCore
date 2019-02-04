@@ -8,15 +8,14 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
-using System;
 using WFLite.Bases;
 using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
-    public class BadRequestObjectResultVariable : Variable
+    public class BadRequestObjectResultVariable : OutVariable<IActionResult>
     {
-        public IVariable Error
+        public IOutVariable Error
         {
             private get;
             set;
@@ -26,7 +25,7 @@ namespace WFLite.AspNetCore.Variables
         {
         }
 
-        public BadRequestObjectResultVariable(IVariable error, IConverter converter = null)
+        public BadRequestObjectResultVariable(IOutVariable error, IConverter<IActionResult> converter = null)
             : base(converter)
         {
             Error = error;
@@ -34,12 +33,7 @@ namespace WFLite.AspNetCore.Variables
 
         protected override object getValue()
         {
-            return new BadRequestObjectResult(Error.GetValue());
-        }
-
-        protected override void setValue(object value)
-        {
-            throw new NotSupportedException();
+            return new BadRequestObjectResult(Error.GetValueAsObject());
         }
     }
 }
