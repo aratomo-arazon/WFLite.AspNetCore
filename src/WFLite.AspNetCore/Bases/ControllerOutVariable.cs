@@ -18,18 +18,23 @@ namespace WFLite.AspNetCore.Bases
     {
         private readonly TController _controller;
 
+        public ControllerOutVariable(TController controller)
+        {
+            _controller = controller;
+        }
+
         public ControllerOutVariable(ILogger logger, TController controller)
             : base(logger)
         {
             _controller = controller;
         }
 
-        protected sealed override object getValue(ILogger logger)
+        protected sealed override object getValue()
         {
-            return getValue(logger, _controller);
+            return getValue(_controller);
         }
 
-        protected abstract object getValue(ILogger logger, TController controller);
+        protected abstract object getValue(TController controller);
     }
 
     public abstract class ControllerOutVariable<TController, TOutValue> : LoggingOutVariable<TOutValue>
@@ -37,17 +42,22 @@ namespace WFLite.AspNetCore.Bases
     {
         private readonly TController _controller;
 
+        public ControllerOutVariable(TController controller)
+        {
+            _controller = controller;
+        }
+
         public ControllerOutVariable(ILogger logger, TController controller)
             : base(logger)
         {
             _controller = controller;
         }
 
-        protected sealed override object getValue(ILogger logger)
+        protected sealed override object getValue()
         {
-            return getValue(logger, _controller);
+            return getValue(_controller);
         }
 
-        protected abstract object getValue(ILogger logger, TController controller);
+        protected abstract object getValue(TController controller);
     }
 }

@@ -29,19 +29,19 @@ namespace WFLite.AspNetCore.Variables
             set;
         }
 
-        public CreatedResultVariable(ILogger logger, ControllerBase controller)
-            : base(logger, controller)
+        public CreatedResultVariable(ControllerBase controller)
+            : base(controller)
         {
         }
 
-        public CreatedResultVariable(ILogger logger, ControllerBase controller, IOutVariable<string> resource, IOutVariable value)
-            : base(logger, controller)
+        public CreatedResultVariable(ControllerBase controller, IOutVariable<string> resource, IOutVariable value)
+            : base(controller)
         {
             Resource = resource;
             Value = value;
         }
 
-        protected sealed override object getValue(ILogger logger, ControllerBase controller)
+        protected sealed override object getValue(ControllerBase controller)
         {
             var request = controller.HttpContext.Request;
             var scheme = request.Scheme;

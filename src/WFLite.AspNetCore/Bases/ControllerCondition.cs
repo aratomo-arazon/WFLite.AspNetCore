@@ -18,17 +18,22 @@ namespace WFLite.AspNetCore.Bases
     {
         private readonly TController _controller;
 
+        public ControllerCondition(TController controller)
+        {
+            _controller = controller;
+        }
+
         public ControllerCondition(ILogger logger, TController controller)
             : base(logger)
         {
             _controller = controller;
         }
 
-        protected sealed override bool check(ILogger logger)
+        protected sealed override bool check()
         {
-            return check(logger, _controller);
+            return check(_controller);
         }
 
-        protected abstract bool check(ILogger logger, TController controller);
+        protected abstract bool check(TController controller);
     }
 }

@@ -20,17 +20,22 @@ namespace WFLite.AspNetCore.Bases
     {
         private readonly TController _controller;
 
+        public ControllerAsyncActivity(TController controller)
+        {
+            _controller = controller;
+        }
+
         public ControllerAsyncActivity(ILogger logger, TController controller)
             : base(logger)
         {
             _controller = controller;
         }
 
-        protected sealed override Task<bool> run(ILogger logger, CancellationToken cancellationToken)
+        protected sealed override Task<bool> run(CancellationToken cancellationToken)
         {
-            return run(logger, _controller, cancellationToken);
+            return run(_controller, cancellationToken);
         }
 
-        protected abstract Task<bool> run(ILogger logger, TController controller, CancellationToken cancellationToken);
+        protected abstract Task<bool> run(TController controller, CancellationToken cancellationToken);
     }
 }

@@ -18,17 +18,22 @@ namespace WFLite.AspNetCore.Bases
     {
         private readonly TController _controller;
 
+        public ControllerSyncActivity(TController controller)
+        {
+            _controller = controller;
+        }
+
         public ControllerSyncActivity(ILogger logger, TController controller)
             : base(logger)
         {
             _controller = controller;
         }
 
-        protected sealed override bool run(ILogger logger)
+        protected sealed override bool run()
         {
-            return run(logger, _controller);
+            return run(_controller);
         }
 
-        protected abstract bool run(ILogger logger, TController controller);
+        protected abstract bool run(TController controller);
     }
 }

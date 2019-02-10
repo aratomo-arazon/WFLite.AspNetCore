@@ -18,17 +18,22 @@ namespace WFLite.AspNetCore.Bases
     {
         private readonly TController _controller;
 
+        public ControllerConverter(TController controller)
+        {
+            _controller = controller;
+        }
+
         public ControllerConverter(ILogger logger, TController controller)
             : base(logger)
         {
             _controller = controller;
         }
 
-        protected sealed override object convert(ILogger logger, object value)
+        protected sealed override object convert(object value)
         {
-            return convert(logger, _controller, value);
+            return convert(_controller, value);
         }
 
-        protected abstract object convert(ILogger logger, TController controller, object value);
+        protected abstract object convert(TController controller, object value);
     }
 }

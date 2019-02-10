@@ -19,6 +19,17 @@ namespace WFLite.AspNetCore.Bases
     {
         private readonly TController _controller;
 
+        public ControllerInOutVariable(TController controller)
+        {
+            _controller = controller;
+        }
+
+        public ControllerInOutVariable(TController controller, IConverter converter = null)
+            : base(converter)
+        {
+            _controller = controller;
+        }
+
         public ControllerInOutVariable(ILogger logger, TController controller)
             : base(logger)
         {
@@ -31,25 +42,36 @@ namespace WFLite.AspNetCore.Bases
             _controller = controller;
         }
 
-        protected sealed override object getValue(ILogger logger)
+        protected sealed override object getValue()
         {
-            return getValue(logger, _controller);
+            return getValue(_controller);
         }
 
-        protected sealed override void setValue(ILogger logger, object value)
+        protected sealed override void setValue(object value)
         {
-            setValue(logger, _controller, value);
+            setValue(_controller, value);
         }
 
-        protected abstract object getValue(ILogger logger, TController controller);
+        protected abstract object getValue(TController controller);
 
-        protected abstract void setValue(ILogger logger, TController controller, object value);
+        protected abstract void setValue(TController controller, object value);
     }
 
     public abstract class ControllerInOutVariable<TController, TValue> : LoggingInOutVariable<TValue>
         where TController : ControllerBase
     {
         private readonly TController _controller;
+
+        public ControllerInOutVariable(TController controller)
+        {
+            _controller = controller;
+        }
+
+        public ControllerInOutVariable(TController controller, IConverter<TValue> converter = null)
+            : base(converter)
+        {
+            _controller = controller;
+        }
 
         public ControllerInOutVariable(ILogger logger, TController controller)
             : base(logger)
@@ -63,25 +85,36 @@ namespace WFLite.AspNetCore.Bases
             _controller = controller;
         }
 
-        protected sealed override object getValue(ILogger logger)
+        protected sealed override object getValue()
         {
-            return getValue(logger, _controller);
+            return getValue(_controller);
         }
 
-        protected sealed override void setValue(ILogger logger, object value)
+        protected sealed override void setValue(object value)
         {
-            setValue(logger, _controller, value);
+            setValue(_controller, value);
         }
 
-        protected abstract object getValue(ILogger logger, TController controller);
+        protected abstract object getValue(TController controller);
 
-        protected abstract void setValue(ILogger logger, TController controller, object value);
+        protected abstract void setValue(TController controller, object value);
     }
 
     public abstract class ControllerInOutVariable<TController, TInValue, TOutValue> : LoggingInOutVariable<TInValue, TOutValue>
         where TController : ControllerBase
     {
         private readonly TController _controller;
+
+        public ControllerInOutVariable(TController controller)
+        {
+            _controller = controller;
+        }
+
+        public ControllerInOutVariable(TController controller, IConverter<TInValue, TOutValue> converter = null)
+            : base(converter)
+        {
+            _controller = controller;
+        }
 
         public ControllerInOutVariable(ILogger logger, TController controller)
             : base(logger)
@@ -95,18 +128,18 @@ namespace WFLite.AspNetCore.Bases
             _controller = controller;
         }
 
-        protected sealed override object getValue(ILogger logger)
+        protected sealed override object getValue()
         {
-            return getValue(logger, _controller);
+            return getValue(_controller);
         }
 
-        protected sealed override void setValue(ILogger logger, object value)
+        protected sealed override void setValue(object value)
         {
-            setValue(logger, _controller, value);
+            setValue(_controller, value);
         }
 
-        protected abstract object getValue(ILogger logger, TController controller);
+        protected abstract object getValue(TController controller);
 
-        protected abstract void setValue(ILogger logger, TController controller, object value);
+        protected abstract void setValue(TController controller, object value);
     }
 }
