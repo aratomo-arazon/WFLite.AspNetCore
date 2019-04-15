@@ -1,10 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*
+ * VirtualFileResultVariable.cs
+ *
+ * Copyright (c) 2019 aratomo-arazon
+ *
+ * This software is released under the MIT License.
+ * http://opensource.org/licenses/mit-license.php
+ */
+
+using Microsoft.AspNetCore.Mvc;
 using WFLite.Bases;
 using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
-    public class VirtualFileResultVariable : OutVariable<string>
+    public class VirtualFileResultVariable : OutVariable<IActionResult>
     {
         public IOutVariable<string> FileName
         {
@@ -18,7 +27,11 @@ namespace WFLite.AspNetCore.Variables
             set;
         }
 
-        public VirtualFileResultVariable(IOutVariable<string> fileName, IOutVariable<string> contentType, IConverter<string> converter = null)
+        public VirtualFileResultVariable()
+        {
+        }
+
+        public VirtualFileResultVariable(IOutVariable<string> fileName, IOutVariable<string> contentType, IConverter<IActionResult> converter = null)
             : base(converter)
         {
             this.FileName = fileName;

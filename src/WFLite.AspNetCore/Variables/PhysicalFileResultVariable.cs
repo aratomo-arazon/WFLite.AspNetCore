@@ -1,10 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*
+ * PhysicalFileResultVariable.cs
+ *
+ * Copyright (c) 2019 aratomo-arazon
+ *
+ * This software is released under the MIT License.
+ * http://opensource.org/licenses/mit-license.php
+ */
+
+using Microsoft.AspNetCore.Mvc;
 using WFLite.Bases;
 using WFLite.Interfaces;
 
 namespace WFLite.AspNetCore.Variables
 {
-    public class PhysicalFileResultVariable : OutVariable<string>
+    public class PhysicalFileResultVariable : OutVariable<IActionResult>
     {
         public IOutVariable<string> FileName
         {
@@ -18,7 +27,11 @@ namespace WFLite.AspNetCore.Variables
             set;
         }
 
-        public PhysicalFileResultVariable(IOutVariable<string> fileName, IOutVariable<string> contentType, IConverter<string> converter = null)
+        public PhysicalFileResultVariable()
+        {
+        }
+
+        public PhysicalFileResultVariable(IOutVariable<string> fileName, IOutVariable<string> contentType, IConverter<IActionResult> converter = null)
             : base(converter)
         {
             this.FileName = fileName;
